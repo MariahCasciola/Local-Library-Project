@@ -28,59 +28,36 @@ function getBooksBorrowedCount(books) {
 }
 
 function getMostCommonGenres(books = []) {
-  // - An array of book objects.
-  //loop through books
-  books.forEach((book) => {
-     //access genre names
-    const {genre} = book;
-    
+  // goal: use code as psuedo code
+  // populate an array of genreObjs
+  const genreObjs = books.reduce((genreObjs, book) => {
+    const { genre } = book;
+    // Check to see if a genreObj with this name exists
+    const existingGenreObj = genreObjs.find((genreObj) => {
+      return genreObj.name === genre;
+    });
+    // When there is no existing genreObj w/ that name, we add a new one
+    if (!existingGenreObj) {
+      // If no match, we create a new genreObj
+      const newGenreObj = { name: genre, count: 1 };
+      genreObjs.push(newGenreObj);
+    } else {
+      // If there is a match, we increment that match's count
+      existingGenreObj.count++;
+    }
+
+    // After each iteration, we will return the genreObjs array that we are trying to populate
+    return genreObjs;
+  }, []);
+  const sortedGenreObjs = genreObjs.sort((genreObjA, genreObjB) => {
+    // sort genres from most common to least common
+    return genreObjB.count - genreObjA.count;
   });
- 
-  // if genre names are
-  //
-
-  // It returns an array containing five objects or fewer that represents the most common occurring genres, ordered from most common to least.
-  // Each object in the returned array has two keys:
-  // - The `name` key which represents the name of the genre.
-  // - The `count` key which represents the number of times the genre occurs.
-  // Even if there is a tie, the array should only contain no more than five objects.
+  // we will only return the top 5
+  return sortedGenreObjs.slice(0, 5);
 }
 
-// //loop through the books array
-// //look at the genre property for each bookObj
-
-// let emptyObjectToPopulate = {};
-// books.forEach((bookObj) => {
-//   const { genre } = bookObj;
-//   //map()?
-//   //slice (0,2)  for get top 2 results of something, for get top 5 slice (0,5)
-// });
-//object.keys(object you are extracting from)
-//
-// {
-//   SCIENCE key : 1
-//    CLASSICS key : 1
-//    TRAVEL key : 1
-//   }
-// //check each bookObj to see if the key exists
-// if it exists increment by one
-//if no exists, create a key and set the value to be 1
-//5 objects represent the most common genres
-//objects ordered from MOST common to least common
-
-//returns an array containing 5 objects or fewer
-//each object will have TWO keys
-//NAME, represents the name of the genre
-//COUNT, which represent the number of times the genre occus
-
-function getMostPopularBooks(books) {
-  //loop through books
-  //access borrows
-  //loop through borrows
-  //
-  //how many times has a book been borrowed (how many borrows object return true?)
-  //returns an array with top five objects or fewer, the REPRESENTS
-}
+function getMostPopularBooks(books) {}
 
 function getMostPopularAuthors(books, authors) {
   //
