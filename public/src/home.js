@@ -30,7 +30,17 @@ function getBooksBorrowedCount(books) {
 function getMostCommonGenres(books = []) {
   // goal: use code as psuedo code
   // populate an array of genreObjs
-  const genreObjs = books.reduce((genreObjs, book) => {
+  const genreObjs = books.reduce(commonGenresHelper, []);
+  const sortedGenreObjs = genreObjs.sort((genreObjA, genreObjB) => {
+    // sort genres from most common to least common
+    return genreObjB.count - genreObjA.count;
+  });
+  // we will only return the top 5
+  return sortedGenreObjs.slice(0, 5);
+}
+
+// Callback function to populate genreObjs
+function commonGenresHelper(genreObjs, book){
     const { genre } = book;
     // Check to see if a genreObj with this name exists
     const existingGenreObj = genreObjs.find((genreObj) => {
@@ -48,14 +58,7 @@ function getMostCommonGenres(books = []) {
 
     // After each iteration, we will return the genreObjs array that we are trying to populate
     return genreObjs;
-  }, []);
-  const sortedGenreObjs = genreObjs.sort((genreObjA, genreObjB) => {
-    // sort genres from most common to least common
-    return genreObjB.count - genreObjA.count;
-  });
-  // we will only return the top 5
-  return sortedGenreObjs.slice(0, 5);
-}
+  }
 
 function getMostPopularBooks(books) {}
 
