@@ -40,30 +40,61 @@ function getMostCommonGenres(books = []) {
 }
 
 // Callback function to populate genreObjs
-function commonGenresHelper(genreObjs, book){
-    const { genre } = book;
-    // Check to see if a genreObj with this name exists
-    const existingGenreObj = genreObjs.find((genreObj) => {
-      return genreObj.name === genre;
-    });
-    // When there is no existing genreObj w/ that name, we add a new one
-    if (!existingGenreObj) {
-      // If no match, we create a new genreObj
-      const newGenreObj = { name: genre, count: 1 };
-      genreObjs.push(newGenreObj);
-    } else {
-      // If there is a match, we increment that match's count
-      existingGenreObj.count++;
-    }
-
-    // After each iteration, we will return the genreObjs array that we are trying to populate
-    return genreObjs;
+function commonGenresHelper(genreObjs, book) {
+  const { genre } = book;
+  // Check to see if a genreObj with this name exists
+  const existingGenreObj = genreObjs.find((genreObj) => {
+    return genreObj.name === genre;
+  });
+  // When there is no existing genreObj w/ that name, we add a new one
+  if (!existingGenreObj) {
+    // If no match, we create a new genreObj
+    const newGenreObj = { name: genre, count: 1 };
+    genreObjs.push(newGenreObj);
+  } else {
+    // If there is a match, we increment that match's count
+    existingGenreObj.count++;
   }
 
-function getMostPopularBooks(books) {}
+  // After each iteration, we will return the genreObjs array that we are trying to populate
+  return genreObjs;
+}
 
-function getMostPopularAuthors(books, authors) {
-  //
+function getMostPopularBooks(books = []) {
+  // return a new array
+  //use map, our # of book objects will stay the same
+  const newArray = books.map((book) => {
+    const { title } = book;
+    const { borrows } = book;
+    const howManyBorrows = borrows.length;
+    return { name: title, count: howManyBorrows };
+  });
+  const sortednewArray = newArray.sort((countA, countB) => {
+    return countB.count - countA.count;
+  });
+  return sortednewArray.slice(0, 5);
+}
+
+function getMostPopularAuthors(books = [], authors = []) {
+  const unsortedResult = books.map((bookObj) => {
+    const { authorId, borrows } = bookObj;
+    const foundAuthor = authors.find((author) => {
+      return author.id === authorId;
+    });
+    return (newObj = {
+      name: helperMethod(foundAuthor.name.first, foundAuthor.name.last),
+      count: borrows.length,
+    });
+  });
+  const sortedArray = unsortedResult.sort((authorA, authorB) => {
+    return authorB.count - authorA.count;
+  });
+  return sortedArray.slice(0, 5);
+}
+//note, in your own time try using map and reduce
+
+function helperMethod(first, last) {
+  return `${first} ${last}`;
 }
 
 module.exports = {
