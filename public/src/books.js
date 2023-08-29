@@ -1,11 +1,7 @@
 function findAuthorById(authors, id) {
-  //identify authors'  id
-  //use find
   return authors.find((author) => {
     return author.id === id;
   });
-
-  //returns and object
 }
 
 function findBookById(books, id) {
@@ -32,14 +28,10 @@ function partitionBooksByBorrowedStatus(books = []) {
   return [resultArray1, resultArray2];
 }
 
-//do now
 function getBorrowersForBook(book = {}, accounts = []) {
   //return an array of objects, represents corresponding accounts
-  //map()
-  //find()
   //loop through borrows array
   const { borrows } = book;
-  // console.log(borrows)
   let borrowIDs = borrows.map((borrowsObj) => {
     //loop through the accounts array
     let findAccount = accounts.find((accountObj) => {
@@ -48,7 +40,7 @@ function getBorrowersForBook(book = {}, accounts = []) {
     findAccount.returned = borrowsObj.returned;
     return findAccount;
   });
-  return borrowIDs.slice(0,10);
+  return borrowIDs.slice(0, 10);
 }
 
 module.exports = {

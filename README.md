@@ -27,10 +27,11 @@ This project displays data from a mock Local Library. Using a boiler plate UI, I
 ## Technology
 
 ```
-JavaScript ES6, HTML, Bootstap 4.5.2, VSCode, and Git.
+JavaScript ES6, HTML5, Bootstap 4.5.2, VSCode, Node, and Git.
 ```
 
 TODO:
 
++ Describe each function and link each one to the place it exists in the repo
 + Style Local Library with CSS instead of bootstrap
 + Add screenshots of live site under each link in description
